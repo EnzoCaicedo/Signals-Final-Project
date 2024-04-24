@@ -16,6 +16,7 @@ confMatrixVal = [];  % Confusion matrix on the validation set
 
 % Iterate over all k values to train the model and validate on the validation dataset
 for k = 1:length(kRange)
+    
     % Train the model on the entire training dataset with current k
     Mdl = fitcknn(X_train, Y_train, 'NumNeighbors', kRange(k));
     
@@ -28,9 +29,9 @@ for k = 1:length(kRange)
     for i = 1:numel(Y_val)
         if valLabels(i) == Y_val(i)
             if Y_val(i) == 0
-                score = score + 1;  % Higher score for correctly predicting '0' (non-user)
+                score = score + 2;  % Higher score for correctly predicting '0' (non-user)
             else
-                score = score + 2;  % Lower score for correctly predicting '1' (user)
+                score = score + 1;  % Lower score for correctly predicting '1' (user)
             end
         end
     end
@@ -60,20 +61,20 @@ disp(confMatrixVal);
 % The final model is already trained and validated to have the highest custom score
 finalModel = bestModel;
 
-% ROC Curve Analysis
-figure;
-numClasses = max(Y_train); % Assume labels are 0 to numClasses
-for class = 1:numClasses
-    % Convert labels to binary for the class vs. all others
-    Y_val_binary = (Y_val == class);
-    [~, score, ~] = predict(bestModel, X_val);
-    
-    % Calculate ROC curve data
-    [Xp, Yp, T, AUC] = perfcurve(Y_val_binary, score(:, class), true);
-    
-    %subplot(2, ceil(numClasses/2), class);
-    plot(Xp, Yp);
-    xlabel('False Positive Rate');
-    ylabel('True Positive Rate');
-    title(sprintf('Class %d vs All - AUC: %.2f', class, AUC));
-end
+% % ROC Curve Analysis
+% figure;
+% numClasses = max(Y_train); % Assume labels are 0 to numClasses
+% for class = 1:numClasses
+%     % Convert labels to binary for the class vs. all others
+%     Y_val_binary = (Y_val == class);
+%     [~, score, ~] = predict(bestModel, X_val);
+% 
+%     % Calculate ROC curve data
+%     [Xp, Yp, T, AUC] = perfcurve(Y_val_binary, score(:, class), true);
+% 
+%     %subplot(2, ceil(numClasses/2), class);
+%     plot(Xp, Yp);
+%     xlabel('False Positive Rate');
+%     ylabel('True Positive Rate');
+%     title(sprintf('Class %d vs All - AUC: %.2f', class, AUC));
+% end
