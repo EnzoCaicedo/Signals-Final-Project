@@ -129,28 +129,28 @@ MycahValidation = zeros(1,2);
     
     trackfalseNominal = 0; % Tracks the amount of false positives in the validation data
 
-    for i = 1:10
+    for i = 1:11
     if ValidationComparisonLowEnd(i) <= JusticeValidation(2) && JusticeValidation(2) <= ValidationComparisonHighEnd(i)
         trackfalseNominal = trackfalseNominal + 1;
         break;
     end
     end
     
-    for i = 1:10
+    for i = 1:11
     if ValidationComparisonLowEnd(i) <= NguyenValidation(2) && NguyenValidation(2) <= ValidationComparisonHighEnd(i)
         trackfalseNominal = trackfalseNominal + 1;
         break;
     end
     end
     
-    for i = 1:10
+    for i = 1:11
     if ValidationComparisonLowEnd(i) <= OchoaValidation(2) && OchoaValidation(2) <= ValidationComparisonHighEnd(i)
         trackfalseNominal = trackfalseNominal + 1;
         break;
     end
     end
     
-    for i = 1:10
+    for i = 1:11
     if ValidationComparisonLowEnd(i) <= MycahValidation(2) && MycahValidation(2) <= ValidationComparisonHighEnd(i)
         trackfalseNominal = trackfalseNominal + 1;
         break;
